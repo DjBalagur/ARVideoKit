@@ -243,7 +243,9 @@ class WritAR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
                 session.stopRunning()
             }
         }
-        assetWriter.finishWriting(completionHandler: finished)
+        if assetWriter.status == .writing {
+            assetWriter.finishWriting(completionHandler: finished)
+        }
     }
     
     func cancel() {
