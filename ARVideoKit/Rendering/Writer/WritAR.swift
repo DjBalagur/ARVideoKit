@@ -115,7 +115,7 @@ class WritAR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         if assetWriter.canAdd(videoInput) {
             assetWriter.add(videoInput)
         } else {
-            delegate?.recorder(didFailRecording: assetWriter.error, and: "An error occurred while adding video input.")
+            delegate?.recorder(didFailRecording: assetWriter.error, andWith: "An error occurred while adding video input.")
             isWritingWithoutError = false
         }
         assetWriter.shouldOptimizeForNetworkUse = adjustForSharing
@@ -177,11 +177,11 @@ class WritAR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
                 isRecording = true
                 isWritingWithoutError = true
             } else {
-                delegate?.recorder(didFailRecording: assetWriter.error, and: "An error occurred while starting the video session.")
+                delegate?.recorder(didFailRecording: assetWriter.error, andWith: "An error occurred while starting the video session.")
                 isWritingWithoutError = false
             }
         } else if assetWriter.status == .failed {
-            delegate?.recorder(didFailRecording: assetWriter.error, and: "Video session failed while recording.")
+            delegate?.recorder(didFailRecording: assetWriter.error, andWith: "Video session failed while recording.")
             logAR.message("An error occurred while recording the video, status: \(assetWriter.status.rawValue), error: \(assetWriter.error!.localizedDescription)")
             isWritingWithoutError = false
             return
@@ -204,12 +204,12 @@ class WritAR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
                 isRecording = true
                 isWritingWithoutError = true
             } else {
-                delegate?.recorder(didFailRecording: assetWriter.error, and: "An error occurred while starting the video session.")
+                delegate?.recorder(didFailRecording: assetWriter.error, andWith: "An error occurred while starting the video session.")
                 isRecording = false
                 isWritingWithoutError = false
             }
         } else if assetWriter.status == .failed {
-            delegate?.recorder(didFailRecording: assetWriter.error, and: "Video session failed while recording.")
+            delegate?.recorder(didFailRecording: assetWriter.error, andWith: "Video session failed while recording.")
             logAR.message("An error occurred while recording the video, status: \(assetWriter.status.rawValue), error: \(assetWriter.error!.localizedDescription)")
             isRecording = false
             isWritingWithoutError = false
