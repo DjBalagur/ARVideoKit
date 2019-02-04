@@ -42,7 +42,11 @@ private var renderer: RenderAR!
     /**
      An object that returns the AR recorder current status.
      */
-    @objc public internal(set)var status: RecordARStatus = .unknown
+    @objc public internal(set)var status: RecordARStatus = .unknown {
+        didSet {
+            self.delegate?.recorder(didChange: status)
+        }
+    }
     /**
      An object that returns the current Microphone status.
      */
@@ -472,7 +476,7 @@ private var renderer: RenderAR!
                 } else {
                     finished?(self.currentVideoPath!, .notDetermined, false)
                     self.status = .readyToRecord
-                    self.delegate?.recorder(didFailRecording: errSecDecode as? Error, and: "An error occured while stopping your video.")
+                    self.delegate?.recorder(didFailRecording: errSecDecode as? Error, andWith: "An error occured while stopping your video.")
                 }
                 self.writer = nil
             }
@@ -506,7 +510,7 @@ private var renderer: RenderAR!
                         self.status = .readyToRecord
                     } else {
                         self.status = .readyToRecord
-                        self.delegate?.recorder(didFailRecording: errSecDecode as? Error, and: "An error occured while stopping your video.")
+                        self.delegate?.recorder(didFailRecording: errSecDecode as? Error, andWith: "An error occured while stopping your video.")
                     }
                     self.writer = nil
                 }
@@ -538,7 +542,7 @@ private var renderer: RenderAR!
                     self.status = .readyToRecord
                 } else {
                     self.status = .readyToRecord
-                    self.delegate?.recorder(didFailRecording: errSecDecode as? Error, and: "An error occured while stopping your video.")
+                    self.delegate?.recorder(didFailRecording: errSecDecode as? Error, andWith: "An error occured while stopping your video.")
                 }
                 self.writer = nil
             }
@@ -792,7 +796,7 @@ extension RecordAR {
                         self.isRecording = false
                         
                         self.status = .readyToRecord
-                        self.delegate?.recorder(didFailRecording: errSecDecode as? Error, and: "An error occured while recording your video.")
+                        self.delegate?.recorder(didFailRecording: errSecDecode as? Error, andWith: "An error occured while recording your video.")
                         self.delegate?.recorder(didEndRecording: self.currentVideoPath!, with: false)
                     }
                 } else {
