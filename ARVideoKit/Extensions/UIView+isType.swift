@@ -15,7 +15,10 @@ extension UIScreen {
      `isiPhone10` is a boolean that returns if the device is iPhone X or not.
      */
     var isiPhone10: Bool {
-        return self.nativeBounds.size == CGSize(width: 1125, height: 2436) || self.nativeBounds.size == CGSize(width: 2436, height: 1125)
+        return  self.nativeBounds.size == CGSize(width: 1125, height: 2436) ||
+                self.nativeBounds.size == CGSize(width: 2436, height: 1125) ||
+                self.nativeBounds.size == CGSize(width: 1242, height: 2688) ||
+                self.nativeBounds.size == CGSize(width: 2688, height: 1242)
     }
 }
 @available(iOS 11.0, *)
